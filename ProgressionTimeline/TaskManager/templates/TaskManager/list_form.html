@@ -1,0 +1,14 @@
+{%extends 'base.html'%}
+{%block body%}
+{%include 'navbar.html'%}
+<div class="container flex-fill card-container">
+    <form method="POST" class="bg-light p-2">
+        {%csrf_token%}
+        <div class="form-group">
+            <label for="id_name">Name:</label>
+            {{form.name}}
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+{%endblock%}

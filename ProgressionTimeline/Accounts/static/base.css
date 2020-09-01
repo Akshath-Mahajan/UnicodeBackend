@@ -1,5 +1,7 @@
-.card-container{
+body{
     min-height: 100vh;
+}
+.card-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,8 +12,27 @@
     border: 2px solid black;
     border-radius: 5px;
 }
+.custom-dark{
+    color:white;
+    background-color: rgba(35, 35, 38, 0.75);
+}
+.custom-dark a{
+    color:white;
+}
+.custom-dark .dropdown-item{
+    color:black !important;
+}
+.custom-float{
+    float: right;
+}
 @media only screen and (max-width: 768px) {
     .card-container form{
         width: 100%;
+    }
+}
+@media only screen and (max-width: 576px) {
+    #lists{
+        visibility: hidden;
+        display: none;
     }
 }

@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block head%}
+<script src="{%static 'eventManager.js'%}"></script>
+{%endblock head%}
+{%block body%}
+{%include 'navbar.html'%}
+<div class="container bg-white flex-fill">
+    <div class="text-center"><h1>{{list.name}}</h1></div>
+    <div class="my-3 w-100 d-flex justify-content-end">
+        <a href="{%url 'add_task' list.id%}" class="btn btn-success">Add Task</a>
+        <a class="btn btn-danger text-white">Delete List</a>
+    </div>
+    <div>
+        {%include 'TaskManager/task_list.html'%}
+    </div>
+</div>
+{%endblock%}

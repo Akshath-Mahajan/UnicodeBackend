@@ -1,7 +1,6 @@
 {%extends 'base.html'%}
 {%block body%}
-<div class="container">
-    <div class="card-container">
+<div class="container flex-fill card-container">
         {%if user.is_authenticated%}
         <h1>
             Welcome, {{user.username}}! You are already logged in, please proceed to either logout or use the application now
@@ -27,6 +26,5 @@
             <input type="submit" class="btn btn-success" />
         </form>
         {%endif%}
-    </div>
 </div>
 {%endblock%}

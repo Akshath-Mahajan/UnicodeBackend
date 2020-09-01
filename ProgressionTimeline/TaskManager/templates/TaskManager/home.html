@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block head%}
+<script src="{%static 'eventManager.js'%}"></script>
+{%endblock head%}
+{%block body%}
+{%include 'navbar.html'%}
+<!-- Dashboard.html -->
+<div class="container bg-white flex-fill">
+    <div class="row">
+        <div id="lists" class="col-12 col-md-4 border px-0">
+            <h1 class="px-3">Lists</h1>
+            <ul class="list-group list-group-flush">
+                {%for item in list%}
+                <li class="list-group-item"><a class="btn btn-block text-left" href="{%url 'list_details' item.id%}"> {{item.name}} </a> </li>
+                {%endfor%}
+            </ul>
+        </div>
+        <div class="col-12 col-md-8 border px-0">
+            <h1 class="px-md-3 pb-3">Approaching Deadlines</h1>
+            {%include 'TaskManager/task_list.html'%}
+        </div>
+    </div>
+</div>
+{%endblock%}

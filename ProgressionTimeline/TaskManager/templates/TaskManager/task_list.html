@@ -1,0 +1,49 @@
+<h4 class="px-md-3">Pending:</h4>
+<ul id='incomplete-tasks-list' class="list-group list-group-flush">
+    <!-- {%if not incomplete_tasks%}
+    <li class="list-group-item px-2 px-md-4 d-flex"><strong>No items in this list</strong></li>
+    {%endif%} -->
+    {%for task in incomplete_tasks%}
+    <li id="{{task.id}}" class="list-group-item px-2 px-md-4 d-flex">
+        <div class='flex-fill'>
+            <strong>{{task.title}}</strong>
+            <p>{{task.description}}</p>
+        </div>
+        <div class="d-flex flex-column float-right justify-content-center align-items-center">
+            <button class="btn btn-primary float-right my-auto toggle-btn">
+                Mark Complete
+            </button>
+            <strong class="text-nowrap">Deadline: 
+                {% with deadline=task.deadline.date|date:"d-m-y" %}
+                    {{deadline|default:"Not due"}}
+                {% endwith %}
+                
+            </strong>
+        </div>
+    </li>
+    {%endfor%}
+</ul>
+<h4 class="px-md-3">Complete:</h4>
+<ul id='complete-tasks-list' class="list-group list-group-flush">
+    <!-- {%if not complete_tasks%}
+    <li class="list-group-item px-2 px-md-4 d-flex"><strong>No items in this list</strong></li>
+    {%endif%} -->
+    {%for task in complete_tasks%}
+        <li id="{{task.id}}" class="list-group-item px-2 px-md-4 d-flex">
+            <div class='flex-fill'>
+                <strong>{{task.title}}</strong>
+                <p>{{task.description}}</p>
+                </div>
+            <div class="d-flex flex-column float-right justify-content-center align-items-center">
+                <button class="btn btn-primary float-right my-auto toggle-btn">
+                    Mark Incomplete
+                </button>
+                <strong class="text-nowrap">Deadline: 
+                    {% with deadline=task.deadline.date|date:"d-m-y" %}
+                        {{deadline|default:"Not due"}}
+                    {% endwith %}
+                </strong>
+            </div>
+        </li>
+    {%endfor%}
+</ul>
