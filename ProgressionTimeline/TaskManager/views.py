@@ -18,14 +18,14 @@ class ListCreate(LoginRequiredMixin, CreateView):
     template_name = 'TaskManager/list_form.html'
     success_url = reverse_lazy('home')
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.user = self.request.user  #Make list owner as logged in user
         return super().form_valid(form)
 class ListDetails(LoginRequiredMixin, DetailView):
     model = List
     template_name = "TaskManager/list_details.html"
     def get_queryset(self, **kwargs):
         qs = List.objects.filter(id=self.kwargs['pk'])
-        if self.request.user == qs[0].user:
+        if self.request.user == qs[0].user: #if list is owned by user
             return qs
         return qs.none()
     def get_context_data(self, **kwargs):
@@ -41,23 +41,12 @@ class ListUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('home')
     def get_queryset(self, **kwargs):
         qs = List.objects.filter(id=self.kwargs['pk'])
-        if self.request.user == qs[0].user:
+        if self.request.user == qs[0].user: #if list is owned by user
             return qs
         return qs.none()
 class ListDelete(LoginRequiredMixin, DeleteView):
     model = List
     success_url = reverse_lazy('home')
-
-
-# class ListDetails(LoginRequiredMixin, View):
-#     def get(self, request, list_id):
-#         l = List.objects.get(id=list_id)
-#         if l.user != request.user:
-#             return HttpResponse("No pls")
-#         incomplete_tasks = Task.objects.filter(_list=l).filter(complete=False).order_by('deadline')
-#         complete_tasks = Task.objects.filter(_list=l).filter(complete=True).order_by('deadline')
-#         context = {'list':l, 'incomplete_tasks':incomplete_tasks, 'complete_tasks':complete_tasks}
-#         return render(request, 'TaskManager/list_details.html', context)
 
 class ToggleComplete(LoginRequiredMixin, View):
     def post(self, request):
@@ -65,43 +54,22 @@ class ToggleComplete(LoginRequiredMixin, View):
         response = HttpResponse("No pls")
         if task.exists():
             task = task[0]
-            if task._list.user == request.user:
+            if task._list.user == request.user: #if list is owned by user
                 task.complete = not task.complete
                 task.save()
                 response = HttpResponse(task.complete)
         return response
 
-class AddTask(LoginRequiredMixin, CreateView):
+class CreateTask(LoginRequiredMixin, CreateView):
     form_class = TaskForm
     template_name = "TaskManager/task_form.html"
     def form_valid(self, form):
-        _list = List.objects.get(id=self.kwargs['list_id'])
-        if _list.user == self.request.user:
+        _list = List.objects.get(id=self.kwargs['pk'])
+        if _list.user == self.request.user: #if list is owned by user
             form.instance._list = _list
         return super().form_valid(form)
     def get_success_url(self):
-        return reverse('list_details', kwargs={'pk':self.kwargs['list_id']})
-
-# class AddTask(LoginRequiredMixin, View):
-#     def get(self, request, list_id):
-#         _list = List.objects.get(id=list_id)
-#         if _list.user != request.user:
-#             return HttpResponse("No pls")
-#         form = TaskForm()
-#         context = {'form': form}
-#         return render(request, 'TaskManager/task_form.html', context)
-#     def post(self, request, list_id):
-#         _list = List.objects.get(id=list_id)
-#         if _list.user != request.user:
-#             return HttpResponse("No pls")
-#         form = TaskForm(request.POST)
-#         if form.is_valid():
-#             new_task = form.save(commit=False)
-#             new_task._list = _list
-#             new_task.save()
-#             return redirect(reverse_lazy('list_details', kwargs={'list_id':list_id}))
-#         else:
-#             return render(request, 'TaskManager/task_form.html', {'form':form})
+        return reverse('list_details', kwargs={'pk':self.kwargs['pk']})
 
 class DeleteTask(LoginRequiredMixin, DeleteView):
     pass

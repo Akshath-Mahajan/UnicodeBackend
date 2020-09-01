@@ -16,9 +16,9 @@ csrf=getCookie('csrftoken')
 function ToggleCompletion(e) {
     id = e.target.parentNode.parentNode.id;
     $.ajax({
-        url: "/api/toggle-complete/",
+        url: "/task/toggle-complete/",
         method: "POST",
-        data:{'task_id':id,csrfmiddlewaretoken:csrf},
+        data:{'task_id':id, 'csrfmiddlewaretoken':csrf},
         success: function(data, code, xhr){
             if(xhr.responseText === "True"){
                 //Task is now complete
