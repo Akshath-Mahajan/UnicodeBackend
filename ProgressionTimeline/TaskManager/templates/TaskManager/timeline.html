@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block body%}
+{%include 'navbar.html'%}
+<!-- Dashboard.html -->
+<div class="container bg-white flex-fill">
+    <h1 class="text-center">Welcome to your timeline!</h1>
+        
+        
+    <form method="GET" class="border p-4">
+        <div class="form-group">
+            <label for="#date">
+                <strong>Enter a date to see what you did</strong>
+            </label>
+            <input id="date" type="date" class="form-control" name="date">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control" value="Search">
+        </div>
+    </form>
+    <div>
+        {%if date%}
+        <h1>Here is what you did on {{date}}</h1>
+        {%endif%}
+        <ul class="list-group">
+        {%for task in tasks%}
+            <li class="list-group-item">
+                <div class='flex-fill'>
+                    <strong>{{task.title}}</strong>
+                    <p>{{task.description}}</p>
+                </div>
+            </li>
+        {%endfor%}
+        </ul>
+    </div>
+</div>
+{%endblock%}

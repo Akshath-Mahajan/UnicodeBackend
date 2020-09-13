@@ -14,7 +14,7 @@ function getCookie(name) {
 }
 csrf=getCookie('csrftoken')
 function ToggleCompletion(e) {
-    id = e.target.parentNode.parentNode.id;
+    id = e.target.parentNode.parentNode.parentNode.id;
     $.ajax({
         url: "/task/toggle-complete/",
         method: "POST",
@@ -35,7 +35,23 @@ function ToggleCompletion(e) {
             }
         }
     });
+
 }
+function OpenDeleteModal(e){
+    var id = e.target.parentNode.parentNode.parentNode.id;
+    document.getElementById("confirm-task-delete").onclick = function(){
+        $.ajax({
+            url: "/task/delete/"+id,
+            method: "POST",
+            data:{'csrfmiddlewaretoken':csrf},
+            success: function(data, code, xhr){
+                document.getElementById(id).outerHTML="";
+            }
+        })
+    }
+}
+
 $(document).ready(() => $(".toggle-btn").click((e)=>ToggleCompletion(e)))
+$(document).ready(() => $(".delete-btn").click((e)=>OpenDeleteModal(e)))
 
 
