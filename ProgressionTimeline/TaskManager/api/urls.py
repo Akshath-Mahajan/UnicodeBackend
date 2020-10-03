@@ -10,6 +10,4 @@ urlpatterns = [
     path('list/create', ListCreate.as_view()),
     path('list/<int:pk>/update', ListUpdate.as_view()),
     path('list/<int:pk>/delete', ListDelete.as_view()),
-    #Auth:
-    path('api-token-auth/', obtain_auth_token),
 ]

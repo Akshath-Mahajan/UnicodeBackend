@@ -20,4 +20,5 @@ urlpatterns = [
     path('accounts/', include('Accounts.urls')),
     path('', include('TaskManager.urls')),
     path('api/', include('TaskManager.api.urls')),
+    path('api/', include('Accounts.api.urls')),
 ]
