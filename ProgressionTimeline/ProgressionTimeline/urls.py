@@ -19,4 +19,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('Accounts.urls')),
     path('', include('TaskManager.urls')),
+    path('api/', include('TaskManager.api.urls')),
 ]

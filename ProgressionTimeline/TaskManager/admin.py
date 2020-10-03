@@ -12,7 +12,7 @@ class TaskAdmin(admin.ModelAdmin):
     admin.site.add_action(complete, "Mark Complete")
     admin.site.add_action(incomplete, "Mark Incomplete") 
 
-admin.site.register(Task, TaskAdmin)
+admin.site.register(Task)
 admin.site.register(List)
 # Register your models here.
 
