@@ -1,7 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
+User = settings.AUTH_USER_MODEL
 class List(models.Model):
     name=models.TextField(max_length=16)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
